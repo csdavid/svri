@@ -82,7 +82,7 @@ export const ManualValidationView: React.FC = () => {
 
   const fetchPeriodos = async () => {
     try {
-      const resp = await axios.get('http://localhost:8008/api/periodos');
+      const resp = await axios.get('/api/periodos');
       const data: Periodo[] = resp.data;
       if (data.length > 0) {
         setSelectedAnio(data[0].periodo_anoi);
@@ -95,7 +95,7 @@ export const ManualValidationView: React.FC = () => {
 
   const fetchSeries = async (anio: string, mes: string) => {
     try {
-      const resp = await axios.get(`http://localhost:8008/api/series?periodo_anoi=${anio}&periodo_mes=${mes}`);
+      const resp = await axios.get(`/api/series?periodo_anoi=${anio}&periodo_mes=${mes}`);
       setSeriesList(resp.data);
       if (resp.data.length > 0) {
         setSelectedSerie(resp.data[0]);
@@ -110,7 +110,7 @@ export const ManualValidationView: React.FC = () => {
 
   const fetchPeriodoEstatus = async (anio: string, mes: string) => {
     try {
-      const resp = await axios.get(`http://localhost:8008/api/periodo-estatus?periodo_anoi=${anio}&periodo_mes=${mes}`);
+      const resp = await axios.get(`/api/periodo-estatus?periodo_anoi=${anio}&periodo_mes=${mes}`);
       setPeriodoEstatus(resp.data);
     } catch (err) {
       console.error('Error cargando estatus del periodo:', err);
@@ -129,7 +129,7 @@ export const ManualValidationView: React.FC = () => {
 
     try {
       const resp = await axios.get(
-        `http://localhost:8008/api/registro-detalle?periodo_anoi=${selectedAnio}&periodo_mes=${selectedMes}&serie=${encodeURIComponent(selectedSerie)}`
+        `/api/registro-detalle?periodo_anoi=${selectedAnio}&periodo_mes=${selectedMes}&serie=${encodeURIComponent(selectedSerie)}`
       );
       const data: RegistroDetalle = resp.data;
       setDetalle(data);
@@ -177,7 +177,7 @@ export const ManualValidationView: React.FC = () => {
         }))
       };
 
-      await axios.post('http://localhost:8008/api/validar-manual', payload);
+      await axios.post('/api/validar-manual', payload);
       setSuccessMsg(`Registro ${selectedSerie} ${decision === 'ACEPTAR' ? 'ACEPTADO' : 'RECHAZADO'} correctamente.`);
       
       fetchPeriodoEstatus(selectedAnio, selectedMes);
@@ -191,7 +191,7 @@ export const ManualValidationView: React.FC = () => {
     if (!selectedAnio || !selectedMes) return;
     try {
       const response = await axios.get(
-        `http://localhost:8008/api/exportar-excel?periodo_anoi=${selectedAnio}&periodo_mes=${selectedMes}`,
+        `/api/exportar-excel?periodo_anoi=${selectedAnio}&periodo_mes=${selectedMes}`,
         { responseType: 'blob' }
       );
 

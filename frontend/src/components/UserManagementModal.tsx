@@ -68,7 +68,7 @@ export const UserManagementModal: React.FC<UserManagementModalProps> = ({ open, 
     setLoadingList(true);
     try {
       const resp = await axios.get(
-        `http://localhost:8008/api/auth/usuarios?solicitante_username=${usuario?.username || 'admin'}`
+        `/api/auth/usuarios?solicitante_username=${usuario?.username || 'admin'}`
       );
       setUsersList(resp.data);
     } catch (err: any) {
@@ -99,7 +99,7 @@ export const UserManagementModal: React.FC<UserManagementModalProps> = ({ open, 
     setSuccessMsg(null);
 
     try {
-      await axios.post('http://localhost:8008/api/auth/usuarios', {
+      await axios.post('/api/auth/usuarios', {
         nombre: nombre.trim(),
         username: username.trim(),
         password: password.trim(),

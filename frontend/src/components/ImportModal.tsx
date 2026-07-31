@@ -72,7 +72,7 @@ export const ImportModal: React.FC<ImportModalProps> = ({ open, onClose, onSucce
     formData.append('usuario', usuario?.username || 'admin');
 
     try {
-      const resp = await axios.post('http://localhost:8008/api/importar-excel', formData, {
+      const resp = await axios.post('/api/importar-excel', formData, {
         headers: { 'Content-Type': 'multipart/form-data' }
       });
       setResult(resp.data);

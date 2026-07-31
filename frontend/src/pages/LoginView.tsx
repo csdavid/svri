@@ -27,7 +27,7 @@ export const LoginView: React.FC = () => {
     setError(null);
 
     try {
-      const resp = await axios.post('http://localhost:8008/api/auth/login', {
+      const resp = await axios.post('/api/auth/login', {
         username,
         password
       });
