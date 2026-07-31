@@ -161,3 +161,34 @@ BEGIN
       AND u.activo = TRUE;
 END;
 $$ LANGUAGE plpgsql;
+
+-- =============================================================================
+-- DATOS INICIALES / SEEDING (SEMBRADO DE DATOS)
+-- =============================================================================
+
+-- 1. Creación del usuario Administrador por defecto con contraseña cifrada en bcrypt
+SELECT sp_crear_usuario('admin', 'admin123', 'Administrador', 'ADMINISTRADOR');
+
+-- 2. Registro de catálogo de precios por defecto para el periodo
+INSERT INTO precios_catalogo (
+    periodo_anoi,
+    periodo_mes,
+    precio_carta_bn,
+    precio_oficio_bn,
+    precio_doblecarta,
+    precio_carta_cl,
+    precio_oficio_cl,
+    precio_digitalizar
+) VALUES 
+    ('2026', 'MAR', 0.7900, 0.8100, 1.3000, 2.0000, 2.1000, 0.3300),
+    ('2026', 'ABR', 0.7900, 0.8100, 1.3000, 2.0000, 2.1000, 0.3300),
+    ('2026', 'MAY', 0.7900, 0.8100, 1.3000, 2.0000, 2.1000, 0.3300),
+    ('2026', 'JUN', 0.7900, 0.8100, 1.3000, 2.0000, 2.1000, 0.3300),
+    ('2026', 'JUL', 0.7900, 0.8100, 1.3000, 2.0000, 2.1000, 0.3300),
+    ('2026', 'AGO', 0.7900, 0.8100, 1.3000, 2.0000, 2.1000, 0.3300),
+    ('2026', 'SEP', 0.7900, 0.8100, 1.3000, 2.0000, 2.1000, 0.3300),
+    ('2026', 'OCT', 0.7900, 0.8100, 1.3000, 2.0000, 2.1000, 0.3300),
+    ('2026', 'NOV', 0.7900, 0.8100, 1.3000, 2.0000, 2.1000, 0.3300),
+    ('2026', 'DIC', 0.7900, 0.8100, 1.3000, 2.0000, 2.1000, 0.3300)       
+ON CONFLICT (periodo_anoi, periodo_mes) DO NOTHING;
+
