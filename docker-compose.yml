@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  svri-db:
+    container_name: svri-postgres
+    image: postgres:16-alpine
+    restart: always
+    environment:
+      POSTGRES_USER: svri_user
+      POSTGRES_PASSWORD: svri_password123
+      POSTGRES_DB: svri_db
+    ports:
+      - "5433:5432"  # Host port 5433 mapped to container port 5432 to avoid conflicts
+    volumes:
+      - svri_postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U svri_user -d svri_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  svri_postgres_data:
